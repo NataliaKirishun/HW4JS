@@ -1,0 +1,30 @@
+html body input,
+html body button {
+  font-size: 20px;
+}
+html body #wrapperFirst {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+html body #wrapperSecond {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+html body #nextStep {
+  height: 50px;
+  display: block;
+  position: relative;
+  border: 1px solid white;
+  margin: 0 auto;
+}
+html body table {
+  margin: auto;
+  font-size: 30px;
+}
+html body table td {
+  width: 250px;
+  height: 40px;
+  font-size: 100px;
+}
