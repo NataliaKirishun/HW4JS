@@ -41,8 +41,8 @@
             '\ud83c\udcdb',
             '\ud83c\udcdd',
             '\ud83c\udcde',
-            '\ud83c\udcd1']];
-    let nameOfSuit = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+            '\ud83c\udcd1']],
+     nameOfSuit = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
     console.log(arrayOfUnicode);
     let Card = function (number, suit) {
         this.number = number;
@@ -53,8 +53,8 @@
         return Math.floor(Math.random() * 4);
     };
 
-    let cardsArray = [];
-    let playersPacksOfCards = [];
+    let cardsArray = [],
+     playersPacksOfCards = [];
 
     function createPackOfCardsArray() {
         for (let suit = 0; suit <= 3; suit++) {
@@ -87,24 +87,24 @@
     createPackOfCardsArray();
     mixDeck(cardsArray);
     distributePackOfCards(cardsArray);
-    let firstPlayerCardArrays = playersPacksOfCards[0];
-    let secondPlayerCardArrays = playersPacksOfCards[1];
-    let trump = defineTrump();
-    let insertTrump = document.getElementById('trump');
+    let firstPlayerCardArrays = playersPacksOfCards[0],
+     secondPlayerCardArrays = playersPacksOfCards[1],
+     trump = defineTrump(),
+     insertTrump = document.getElementById('trump');
     insertTrump.innerHTML = nameOfSuit[trump];
-    let firstPlayerScore = document.getElementById('firstScore');
-    let secondPlayerScore = document.getElementById('secondScore');
-    let tableOfResults = document.getElementById('tableResult');
-    let nameWinner = document.getElementById('nameOfWinner');
-let countOfSteps=0;
+    let firstPlayerScore = document.getElementById('firstScore'),
+     secondPlayerScore = document.getElementById('secondScore'),
+     tableOfResults = document.getElementById('tableResult'),
+     nameWinner = document.getElementById('nameOfWinner'),
+     countOfSteps=0;
 
     function* gameStart() {
 
-    let firstPlayerCard = firstPlayerCardArrays.pop();
-    let secondPlayerCard = secondPlayerCardArrays.pop();
-    let newRow = document.createElement('tr');
-    let newCellFirst = document.createElement('td');
-    let newCellSecond = document.createElement('td');
+    let firstPlayerCard = firstPlayerCardArrays.pop(),
+     secondPlayerCard = secondPlayerCardArrays.pop(),
+     newRow = document.createElement('tr'),
+     newCellFirst = document.createElement('td'),
+     newCellSecond = document.createElement('td');
     tableOfResults.appendChild(newRow);
     newCellFirst.innerHTML = arrayOfUnicode[firstPlayerCard.suit][firstPlayerCard.number];
     newCellSecond.innerHTML = arrayOfUnicode[secondPlayerCard.suit][secondPlayerCard.number];
