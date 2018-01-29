@@ -2,47 +2,47 @@
     'use strict';
 
     let arrayOfUnicode = [
-        ['', '', '', '', '', '',
-            '\ud83c\udca6',
-            '\ud83c\udca7',
-            '\ud83c\udca8',
-            '\ud83c\udca9',
-            '\ud83c\udcaa',
-            '\ud83c\udcab',
-            '\ud83c\udcad',
-            '\ud83c\udcae',
-            '\ud83c\udca1'],
-        ['', '', '', '', '', '',
-            '\ud83c\udcb6',
-            '\ud83c\udcb7',
-            '\ud83c\udcb8',
-            '\ud83c\udcb9',
-            '\ud83c\udcba',
-            '\ud83c\udcbb',
-            '\ud83c\udcbd',
-            '\ud83c\udcbe',
-            '\ud83c\udcb1'],
-        ['', '', '', '', '', '',
-            '\ud83c\udcc6',
-            '\ud83c\udcc7',
-            '\ud83c\udcc8',
-            '\ud83c\udcc9',
-            '\ud83c\udcca',
-            '\ud83c\udccb',
-            '\ud83c\udccd',
-            '\ud83c\udcce',
-            '\ud83c\udcc1'],
-        ['', '', '', '', '', '',
-            '\ud83c\udcd6',
-            '\ud83c\udcd7',
-            '\ud83c\udcd8',
-            '\ud83c\udcd9',
-            '\ud83c\udcda',
-            '\ud83c\udcdb',
-            '\ud83c\udcdd',
-            '\ud83c\udcde',
-            '\ud83c\udcd1']],
-     nameOfSuit = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+            ['', '', '', '', '', '',
+                '\ud83c\udca6',
+                '\ud83c\udca7',
+                '\ud83c\udca8',
+                '\ud83c\udca9',
+                '\ud83c\udcaa',
+                '\ud83c\udcab',
+                '\ud83c\udcad',
+                '\ud83c\udcae',
+                '\ud83c\udca1'],
+            ['', '', '', '', '', '',
+                '\ud83c\udcb6',
+                '\ud83c\udcb7',
+                '\ud83c\udcb8',
+                '\ud83c\udcb9',
+                '\ud83c\udcba',
+                '\ud83c\udcbb',
+                '\ud83c\udcbd',
+                '\ud83c\udcbe',
+                '\ud83c\udcb1'],
+            ['', '', '', '', '', '',
+                '\ud83c\udcc6',
+                '\ud83c\udcc7',
+                '\ud83c\udcc8',
+                '\ud83c\udcc9',
+                '\ud83c\udcca',
+                '\ud83c\udccb',
+                '\ud83c\udccd',
+                '\ud83c\udcce',
+                '\ud83c\udcc1'],
+            ['', '', '', '', '', '',
+                '\ud83c\udcd6',
+                '\ud83c\udcd7',
+                '\ud83c\udcd8',
+                '\ud83c\udcd9',
+                '\ud83c\udcda',
+                '\ud83c\udcdb',
+                '\ud83c\udcdd',
+                '\ud83c\udcde',
+                '\ud83c\udcd1']],
+        nameOfSuit = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
     console.log(arrayOfUnicode);
     let Card = function (number, suit) {
         this.number = number;
@@ -54,7 +54,7 @@
     };
 
     let cardsArray = [],
-     playersPacksOfCards = [];
+        playersPacksOfCards = [];
 
     function createPackOfCardsArray() {
         for (let suit = 0; suit <= 3; suit++) {
@@ -88,66 +88,71 @@
     mixDeck(cardsArray);
     distributePackOfCards(cardsArray);
     let firstPlayerCardArrays = playersPacksOfCards[0],
-     secondPlayerCardArrays = playersPacksOfCards[1],
-     trump = defineTrump(),
-     insertTrump = document.getElementById('trump');
+        secondPlayerCardArrays = playersPacksOfCards[1],
+        trump = defineTrump(),
+        insertTrump = document.getElementById('trump');
     insertTrump.innerHTML = nameOfSuit[trump];
     let firstPlayerScore = document.getElementById('firstScore'),
-     secondPlayerScore = document.getElementById('secondScore'),
-     tableOfResults = document.getElementById('tableResult'),
-     nameWinner = document.getElementById('nameOfWinner'),
-     countOfSteps=0;
+        secondPlayerScore = document.getElementById('secondScore'),
+        tableOfResults = document.getElementById('tableResult'),
+        nameWinner = document.getElementById('nameOfWinner');
+
 
     function* gameStart() {
+        for (let i = 0; i < 18; i++) {
+            let firstPlayerCard = firstPlayerCardArrays.pop(),
+                secondPlayerCard = secondPlayerCardArrays.pop(),
+                newRow = document.createElement('tr'),
+                newCellFirst = document.createElement('td'),
+                newCellSecond = document.createElement('td');
+            tableOfResults.appendChild(newRow);
+            newCellFirst.innerHTML = arrayOfUnicode[firstPlayerCard.suit][firstPlayerCard.number];
+            newCellSecond.innerHTML = arrayOfUnicode[secondPlayerCard.suit][secondPlayerCard.number];
+            if (firstPlayerCard.suit === 1 || firstPlayerCard.suit === 2) {
+                newCellFirst.classList.add('red');
+            }
+            if (secondPlayerCard.suit === 1 || secondPlayerCard.suit === 2) {
+                newCellSecond.classList.add('red');
+            }
+            newRow.appendChild(newCellFirst);
+            newRow.appendChild(newCellSecond);
+            if (firstPlayerCard.suit === trump && secondPlayerCard.suit === trump) {
+                if (firstPlayerCard.number > secondPlayerCard.number) {
+                    firstPlayerScore.innerHTML++;
+                } else {
+                    secondPlayerScore.innerHTML++;
+                }
+            }
+            if (firstPlayerCard.suit === trump && secondPlayerCard.suit !== trump) {
+                firstPlayerScore.innerHTML++;
+            }
+            if (secondPlayerCard.suit === trump && firstPlayerCard.suit !== trump) {
+                secondPlayerScore.innerHTML++;
+            }
+            if (firstPlayerCard.suit !== trump && secondPlayerCard.suit !== trump) {
+                if (firstPlayerCard.number > secondPlayerCard.number) {
+                    firstPlayerScore.innerHTML++;
+                } else {
+                    secondPlayerScore.innerHTML++;
+                }
+            }
 
-    let firstPlayerCard = firstPlayerCardArrays.pop(),
-     secondPlayerCard = secondPlayerCardArrays.pop(),
-     newRow = document.createElement('tr'),
-     newCellFirst = document.createElement('td'),
-     newCellSecond = document.createElement('td');
-    tableOfResults.appendChild(newRow);
-    newCellFirst.innerHTML = arrayOfUnicode[firstPlayerCard.suit][firstPlayerCard.number];
-    newCellSecond.innerHTML = arrayOfUnicode[secondPlayerCard.suit][secondPlayerCard.number];
-    newRow.appendChild(newCellFirst);
-    newRow.appendChild(newCellSecond);
-    if (firstPlayerCard.suit === trump && secondPlayerCard.suit === trump) {
-        if (firstPlayerCard.number > secondPlayerCard.number) {
-            firstPlayerScore.innerHTML++;
-        } else {
-            secondPlayerScore.innerHTML++;
+            yield;
         }
-    }
-    if (firstPlayerCard.suit === trump && secondPlayerCard.suit !== trump) {
-        firstPlayerScore.innerHTML++;
-    }
-    if (secondPlayerCard.suit === trump && firstPlayerCard.suit !== trump) {
-        secondPlayerScore.innerHTML++;
-    }
-    if (firstPlayerCard.suit !== trump && secondPlayerCard.suit !== trump) {
-        if (firstPlayerCard.number > secondPlayerCard.number) {
-            firstPlayerScore.innerHTML++;
-        } else {
-            secondPlayerScore.innerHTML++;
+        ;
+        if (+firstPlayerScore.innerHTML > +secondPlayerScore.innerHTML) {
+            nameWinner.innerHTML = 'Петя';
         }
-    }
-    countOfSteps++;
-    yield;
-    }
+        if (+firstPlayerScore.innerHTML < +secondPlayerScore.innerHTML) {
+            nameWinner.innerHTML = 'Вася';
+        }
+        if (+firstPlayerScore.innerHTML === +secondPlayerScore.innerHTML) {
+            nameWinner.innerHTML = 'Ничья';
+        }
+    };
 
-    document.addEventListener('click', function () {
-        if (countOfSteps<18) {
-         return gameStart().next();}
-         else {
-            if (+firstPlayerScore.innerHTML > +secondPlayerScore.innerHTML)
-            {nameWinner.innerHTML = 'Петя';}
-            if (+firstPlayerScore.innerHTML < +secondPlayerScore.innerHTML)
-            {   nameWinner.innerHTML = 'Вася';}
-            if (+firstPlayerScore.innerHTML === +secondPlayerScore.innerHTML)
-            {   nameWinner.innerHTML = 'Ничья';}
-        }
+    let generator = gameStart();
+    document.addEventListener('click', () => {
+        generator.next();
     });
-
-
-
-
 }());
