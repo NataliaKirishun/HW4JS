@@ -22,9 +22,14 @@ html body #nextStep {
 html body table {
   margin: auto;
   font-size: 30px;
+  text-align: center;
 }
-html body table td {
+html body table tr td {
   width: 250px;
   height: 40px;
   font-size: 100px;
 }
+html body table tr .red {
+  color: red;
+}
+
